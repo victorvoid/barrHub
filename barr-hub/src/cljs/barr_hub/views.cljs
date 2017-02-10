@@ -1,14 +1,18 @@
 (ns barr-hub.views
-    (:require [re-frame.core :as re-frame]))
+  (:require [re-frame.core :as re-frame]
+            [secretary.core :as secretary]))
 
 ;; Input Search
 
 (defn input-search []
+  (let [value (re-frame/subscribe [:search-key])]
     (fn []
-      [:form
+      [:form {:on-submit #()}
       [:input {:name "search"
                 :placeholder "Search GitHub"
                 :type "search"
+                :required ""
+                :value @value
                 :style {:width "80%"
                         :height "38px"
                         :padding-left "5px"
@@ -17,10 +21,8 @@
                         :transition "all .2s"
                         :margin-right "5px"}
                 :on-change #(re-frame/dispatch [:search-key (-> % .-target .-value)])}]
-      [:input {:type "submit"
-                :value "Search"
-                :class "btn btn__state--default"}]]))
-
+       [:a {:class "btn btn__state--default"
+            :onClick #( secretary/dispatch! "#/repositories/victor")} "Submit"]])))
 
 ;; home
 

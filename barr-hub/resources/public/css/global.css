@@ -11,6 +11,7 @@ figure{
     padding: 10px;
     border-radius: 3px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .btn__state--default{

@@ -14,6 +14,7 @@
        (secretary/dispatch! (.-token event))))
     (.setEnabled true)))
 
+
 (defn app-routes []
   (secretary/set-config! :prefix "#")
   ;; --------------------
@@ -24,7 +25,8 @@
   (defroute "/about" []
     (re-frame/dispatch [:set-active-panel :about-panel]))
 
-  (defroute "/repositories" []
+  (defroute "/repositories/:username" [username]
+    (.log js/console (str "route !!! " username))
     (re-frame/dispatch [:set-active-panel :search-repositories-list]))
 
   ;; --------------------
