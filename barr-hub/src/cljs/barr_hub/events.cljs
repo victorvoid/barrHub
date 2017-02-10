@@ -1,6 +1,7 @@
 (ns barr-hub.events
-    (:require [re-frame.core :as re-frame]
-              [barr-hub.db :as db]))
+  (:require [re-frame.core :as re-frame]
+            [ajax.core :refer [GET]]
+            [barr-hub.db :as db]))
 
 
 
@@ -19,3 +20,23 @@
  :search-key
  (fn [db [_ text]]
    (assoc db :search-key text)))
+
+
+(re-frame/reg-event-db
+ :request-success-repositories
+ (fn [db [_ response]]
+   (assoc db :repositories-search response)))
+
+;; search repositories
+
+(re-frame/reg-event-db
+ :request-search
+ (fn
+   [db [_ query-params]]
+
+   (re-frame/dispatch [:search-key (get query-params :q)])
+
+   (GET
+      (str "https://api.github.com/search/repositories?q=" (get query-params :q))
+      {:handler #(re-frame/dispatch [:request-success-repositories %1])
+      :error-handler #(js/console.log "error :/")})))

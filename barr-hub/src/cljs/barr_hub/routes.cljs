@@ -17,17 +17,16 @@
 
 (defn app-routes []
   (secretary/set-config! :prefix "#")
-  ;; --------------------
-  ;; define routes here
   (defroute "/" []
     (re-frame/dispatch [:set-active-panel :home-panel]))
 
   (defroute "/about" []
     (re-frame/dispatch [:set-active-panel :about-panel]))
 
-  (defroute "/repositories/:username" [username]
-    (.log js/console (str "route !!! " username))
-    (re-frame/dispatch [:set-active-panel :search-repositories-list]))
+  (defroute "/search/" [query-params]
+    (re-frame/dispatch [:set-active-panel :search-repositories-list])
+    (re-frame/dispatch-sync [:request-search query-params]))
+
 
   ;; --------------------
   (hook-browser-navigation!))

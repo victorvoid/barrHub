@@ -21,11 +21,9 @@
                         :transition "all .2s"
                         :margin-right "5px"}
                 :on-change #(re-frame/dispatch [:search-key (-> % .-target .-value)])}]
-       [:a {:class "btn btn__state--default"
-            :onClick #( secretary/dispatch! "#/repositories/victor")} "Submit"]])))
+       [:a {:class "btn btn__state--default" :href (str "#/search/?q="@value)} "Submit"]])))
 
 ;; home
-
 (defn home-panel []
     (fn []
       [:section {:style {:padding "100px"
