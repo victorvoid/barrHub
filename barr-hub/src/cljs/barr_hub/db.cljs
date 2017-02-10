@@ -3,6 +3,6 @@
 (def app-db
   {:name "re-frame"
    :loading? false
-   :repositories-search ""
+   :repositories-search-list ""
    :search-key ""})
 

@@ -16,3 +16,8 @@
  :active-panel
  (fn [db _]
    (:active-panel db)))
+
+(re-frame/reg-sub
+ :repositories-search-list
+ (fn [db]
+   (:repositories-search-list db)))

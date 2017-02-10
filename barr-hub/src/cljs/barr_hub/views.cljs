@@ -42,13 +42,16 @@
 ;search repositories
 
 (defn search-repositories-container []
-  (fn []
-    [:section {:class "repositories__container "}
-     [:h2 {:class "found__title "} "We’ve found 49707 repository results"]
-     [:ul {:class "search__list"}
-      [:li {:class "search__item"}
-       [:h3 {:class "search__item__name"}
-        [:a "victor/space-jekyll-template"]]]]]))
+  (let [repositories (re-frame/subscribe [:repositories-search-list])]
+    (.log js/console (js->clj @repositories ))
+    (fn []
+      [:section {:class "repositories__container "}
+      [:h2 {:class "found__title "} "We’ve found 49707 repository results"]
+       [:ul {:class "search__list"}
+        ;; (for [repo repositories]
+          [:li {:class "search__item"}
+          [:h3 {:class "search__item__name"}
+            [:a "jdsjd"]]]]])))
 
 (defn search-repositories-aside []
   (fn []

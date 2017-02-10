@@ -25,7 +25,8 @@
 (re-frame/reg-event-db
  :request-success-repositories
  (fn [db [_ response]]
-   (assoc db :repositories-search response)))
+   (.log js/console (:items response))
+   (assoc db :repositories-search-list (js->clj response))))
 
 ;; search repositories
 
@@ -37,6 +38,7 @@
    (re-frame/dispatch [:search-key (get query-params :q)])
 
    (GET
-      (str "https://api.github.com/search/repositories?q=" (get query-params :q))
-      {:handler #(re-frame/dispatch [:request-success-repositories %1])
-      :error-handler #(js/console.log "error :/")})))
+    (str "https://api.github.com/search/repositories?q=" (get query-params :q))
+    {
+     :handler #(re-frame/dispatch [:request-success-repositories %1])
+     :error-handler #(js/console.log (str "error :/" %1))})))
