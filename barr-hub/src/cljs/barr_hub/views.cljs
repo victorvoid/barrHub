@@ -1,5 +1,6 @@
 (ns barr-hub.views
   (:require [re-frame.core :as re-frame]
+            [devtools.core :as devtools]
             [secretary.core :as secretary]))
 
 ;; Input Search
@@ -43,15 +44,15 @@
 
 (defn search-repositories-container []
   (let [repositories (re-frame/subscribe [:repositories-search-list])]
-    (.log js/console (js->clj @repositories ))
+    (.log js/console (get-in @repositories ["items"]))
     (fn []
       [:section {:class "repositories__container "}
       [:h2 {:class "found__title "} "We’ve found 49707 repository results"]
        [:ul {:class "search__list"}
-        ;; (for [repo repositories]
-          [:li {:class "search__item"}
-          [:h3 {:class "search__item__name"}
-            [:a "jdsjd"]]]]])))
+        (map (fn [repository]
+               [:li {:class "search__item" :key (get repository "id")}
+                [:h3 {:class "search__item__name"}
+                 [:a {:href (get repository "html_url")} (get repository "full_name")]]]) (get @repositories "items"))]])))
 
 (defn search-repositories-aside []
   (fn []
