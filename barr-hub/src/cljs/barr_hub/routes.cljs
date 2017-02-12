@@ -24,6 +24,7 @@
     (re-frame/dispatch [:set-active-panel :about-panel]))
 
   (defroute "/search/" [query-params]
+    (.log js/console "dksjdskdjdk")
     (re-frame/dispatch [:set-active-panel :search-repositories-list])
     (re-frame/dispatch-sync [:request-search query-params]))
 

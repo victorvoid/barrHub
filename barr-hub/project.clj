@@ -5,9 +5,6 @@
                  [re-frame "0.9.1"]
                  [re-frisk "0.3.2"]
                  [cljs-ajax "0.5.8"]
-                 [binaryage/devtools      "X.X.X" :scope "test"] ;; when you want cljd-devtools or both, replace X.X.X for current version
-                 [binaryage/dirac         "X.X.X" :scope "test"] ;; when you want dirac or both, replace X.X.X for current version
-                 [powerlaces/boot-cljs-devtools "0.X.X" :scope "test"]
                  [org.clojure/clojurescript "1.9.293"] ;; see below
                  [secretary "1.2.3"]]
 

@@ -8,7 +8,7 @@
 (defn input-search []
   (let [value (re-frame/subscribe [:search-key])]
     (fn []
-      [:form {:on-submit #()}
+      [:form 
       [:input {:name "search"
                 :placeholder "Search GitHub"
                 :type "search"
@@ -22,7 +22,9 @@
                         :transition "all .2s"
                         :margin-right "5px"}
                 :on-change #(re-frame/dispatch [:search-key (-> % .-target .-value)])}]
-       [:a {:class "btn btn__state--default" :href (str "#/search/?q="@value)} "Submit"]])))
+       [:button {:class "btn btn__state--default"
+                 :type "submit"
+                 :on-click #(secretary/dispatch! "/about/")} "Submit"]])))
 
 ;; home
 (defn home-panel []
@@ -44,10 +46,10 @@
 
 (defn search-repositories-container []
   (let [repositories (re-frame/subscribe [:repositories-search-list])]
-    (.log js/console (get-in @repositories ["items"]))
+    (.log js/console @repositories)
     (fn []
       [:section {:class "repositories__container "}
-      [:h2 {:class "found__title "} "We’ve found 49707 repository results"]
+      [:h2 {:class "found__title "} (str "We’ve found " (get @repositories "total_count") " repository results")]
        [:ul {:class "search__list"}
         (map (fn [repository]
                [:li {:class "search__item" :key (get repository "id")}
@@ -55,6 +57,7 @@
                  [:a {:href (get repository "html_url")} (get repository "full_name")]]]) (get @repositories "items"))]])))
 
 (defn search-repositories-aside []
+  (let [repositories (re-frame/subscribe [:repositories-search-list])]
   (fn []
     [:aside {:class "search__menu"}
      [:nav
@@ -63,12 +66,12 @@
         [:a {:title "Will list all repositories of your Search"}
          [:svg {:width "40" :height "40" :class "icon-repositories"}
           [:use {:xlinkHref "#repository"}]] "Repositories"
-         [:span "4000"]]]
+         [:span (get @repositories "total_count")]]]
        [:li {:class "search__menu--item"}
         [:a {:title "Users will be listed"}
          [:svg {:width "40" :height "40" :class "icon-user"}
           [:use {:xlinkHref "#user"}]] "Users"
-         [:span "3000"]]]]]]))
+         [:span "3000"]]]]]])))
 
 (defn search-repositories-list []
   (fn []
