@@ -4,11 +4,24 @@
             [secretary.core :as secretary]))
 
 ;; Input Search
+(defn redirect! [loc]
+  (set! (.-location js/window) loc))
+
+(defn set-hash! [loc]
+  (set! (.-hash js/window.location) loc))
+(defrecord User [id]
+  secretary/IRenderRoute
+  (render-route [_]
+    (str "/#/about"))
+
+  (render-route [this params]
+    (str (secretary/render-route this) "?"
+         (secretary/encode-query-params params))))
 
 (defn input-search []
   (let [value (re-frame/subscribe [:search-key])]
     (fn []
-      [:form 
+      [:form {:action ""}
       [:input {:name "search"
                 :placeholder "Search GitHub"
                 :type "search"
@@ -24,7 +37,9 @@
                 :on-change #(re-frame/dispatch [:search-key (-> % .-target .-value)])}]
        [:button {:class "btn btn__state--default"
                  :type "submit"
-                 :on-click #(secretary/dispatch! "/about/")} "Submit"]])))
+                 :on-click #(do
+                              (.preventDefault %)
+                              (set-hash! (str "/search/?q=" @value)))} "Submit"]])))
 
 ;; home
 (defn home-panel []

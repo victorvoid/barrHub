@@ -24,9 +24,11 @@
     (re-frame/dispatch [:set-active-panel :about-panel]))
 
   (defroute "/search/" [query-params]
-    (.log js/console "dksjdskdjdk")
+    (.log js/console "in search")
+    (.log js/console query-params)
+    (re-frame/dispatch [:request-search query-params])
     (re-frame/dispatch [:set-active-panel :search-repositories-list])
-    (re-frame/dispatch-sync [:request-search query-params]))
+    )
 
 
   ;; --------------------

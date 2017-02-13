@@ -14,6 +14,8 @@
 (re-frame/reg-event-db
  :set-active-panel
  (fn [db [_ active-panel]]
+   (.log js/console "in set-active-panel")
+   (.log js/console (str "active-panel: " active-panel))
    (assoc db :active-panel active-panel)))
 
 (re-frame/reg-event-db
@@ -33,9 +35,10 @@
  :request-search
  (fn
    [db [_ query-params]]
-
+   (.log js/console "in request-search...")
+   (.log js/console  (get query-params :q))
    (re-frame/dispatch [:search-key (get query-params :q)])
-
+   (.log js/console "after dispatch!")
    (GET
     (str "https://api.github.com/search/repositories?q=" (get query-params :q))
     {
