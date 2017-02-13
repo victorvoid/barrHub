@@ -35,10 +35,7 @@
  :request-search
  (fn
    [db [_ query-params]]
-   (.log js/console "in request-search...")
    (.log js/console  (get query-params :q))
-   (re-frame/dispatch [:search-key (get query-params :q)])
-   (.log js/console "after dispatch!")
    (GET
     (str "https://api.github.com/search/repositories?q=" (get query-params :q))
     {

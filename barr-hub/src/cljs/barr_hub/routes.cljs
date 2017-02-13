@@ -26,8 +26,7 @@
   (defroute "/search/" [query-params]
     (.log js/console "in search")
     (.log js/console query-params)
-    (re-frame/dispatch [:request-search query-params])
-    (re-frame/dispatch [:set-active-panel :search-repositories-list])
+    (re-frame/dispatch [:set-active-panel :search-repositories-panel])
     )
 
 

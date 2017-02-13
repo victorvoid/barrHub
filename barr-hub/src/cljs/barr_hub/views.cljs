@@ -107,10 +107,11 @@
 ;; main
 
 (defn- panels [panel-name]
+  (.log js/console (str "pane-name " panel-name))
   (case panel-name
     :home-panel [home-panel]
     :about-panel [about-panel]
-    :search-repositories-list [search-repositories-list]
+    :search-repositories-panel [search-repositories-list]
     [:div "not found"]))
 
 (defn show-panel [panel-name]
