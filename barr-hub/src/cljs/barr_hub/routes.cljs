@@ -27,6 +27,7 @@
     (.log js/console "in search")
     (.log js/console query-params)
     (re-frame/dispatch [:set-active-panel :search-repositories-panel])
+    (re-frame/dispatch-sync [:request-search query-params])
     )
 
 
