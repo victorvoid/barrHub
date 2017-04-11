@@ -5,6 +5,7 @@
                  [re-frame "0.9.1"]
                  [re-frisk "0.3.2"]
                  [cljs-ajax "0.5.8"]
+                 [kibu/pushy "0.3.7"]
                  [org.clojure/clojurescript "1.9.293"] ;; see below
                  [secretary "1.2.3"]]
 
