@@ -23,18 +23,12 @@
   (let [value (re-frame/subscribe [:search-key])]
     (fn []
       [:form
-      [:input {:name "search"
+      [:input { :name "search"
                 :placeholder "Search GitHub"
                 :type "search"
+                :class "search__input"
                 :required ""
                 :value @value
-                :style {:width "80%"
-                        :height "38px"
-                        :padding-left "5px"
-                        :border "1px solid #ddd"
-                        :outline "none"
-                        :transition "all .2s"
-                        :margin-right "5px"}
                 :on-change #(re-frame/dispatch [:search-key (-> % .-target .-value)])}]
        [:button {
                  :type "Submit"
@@ -45,15 +39,11 @@
 ;; home
 (defn home-panel []
     (fn []
-      [:section {:style {:padding "100px"
-                         :max-width "600px"
-                         :margin "0 auto"
-                         :text-align "center"}}
+      [:section {:class "home__panel"}
        [:img {:title "Github's Octocat mascot"
-              :style {:max-width "300px"}
               :alt "Mascot of the GitHub"
               :src "http://cameronmcefee.com/img/work/the-octocat/codercat.jpg"}]
-       [:h2 {:style { :font-weight "300"}} "Search more than "
+       [:h2 "Search more than "
         [:strong "19M"] " users"]
        [input-search]]))
 

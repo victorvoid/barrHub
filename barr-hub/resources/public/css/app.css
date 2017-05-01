@@ -20,6 +20,16 @@
     max-width: 1000px;
 }
 
+.search__input {
+    width: 80%;
+    height: 38px;
+    padding-left: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: all .2s;
+    margin-left: 5px;
+}
+
 .search__container form {
     max-width: 610px;
     margin: 0 auto;
@@ -112,4 +122,18 @@
     color: #666;
     padding: 6px;
     border-radius: 20px;
+}
+
+.home__panel{
+    padding: 100px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+.home__panel h2{
+    font-weight: 300;
+}
+
+.home__panel img{
+    max-width: 300px;
 }
