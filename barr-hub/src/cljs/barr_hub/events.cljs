@@ -3,9 +3,6 @@
             [ajax.core :refer [GET]]
             [barr-hub.db :as db]))
 
-
-
-
 (re-frame/reg-event-db
  :initialize-db
  (fn  [_ _]
